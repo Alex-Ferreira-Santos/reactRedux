@@ -14,11 +14,7 @@ interface DispatchProps{
     
 }
 
-interface OwnProps{
-
-}
-
-type Props = StateProps & DispatchProps & OwnProps
+type Props = StateProps & DispatchProps
 
 
 class RepositoryList extends Component<Props> {
