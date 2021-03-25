@@ -5,6 +5,8 @@ import { ApplicationState} from '../../store'
 import { connect} from 'react-redux';
 import { Repository } from '../../store/ducks/repositories/types';
 
+import RepositoryItem from '../RepositoryItem'
+
 interface StateProps{
     repositories: Repository[]
 }
@@ -27,7 +29,11 @@ class RepositoryList extends Component<Props> {
         const { repositories } = this.props
         return (
             <ul>
-                {repositories.map(repository => <li>{repository.name}</li>)}
+                {repositories.map(repository => (
+
+                <RepositoryItem key={repository.id} repository={repository}/>
+                
+                ))}
             </ul>  
         )
     }
