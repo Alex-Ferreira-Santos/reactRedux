@@ -1,9 +1,19 @@
 import React,{Component} from 'react'
-
-import todo from './store/ducks/todo'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {Creators as TodoActions} from './store/ducks/todo'
 
 class TodoList extends Component{
+    handleSubmit = e => {
+        e.preventDefault();
+    
+        this.props.add(this.input.value);
+    
+        this.input.value = "";
+    };
+    
     render() {
+        const {todo, complete, remove} = this.props
         return(
             <section>
             <form onSubmit={this.handleSubmit}>
@@ -12,12 +22,12 @@ class TodoList extends Component{
             </form>
     
             <ul>
-              {todos.map(todo => (
+              {todo.map(todo => (
                 <li key={todo.id}>
                   {todo.complete ? <s>{todo.text}</s> : todo.text}
                   <div>
-                    <button onClick={() => toggleTodo(todo.id)}>Toggle</button>
-                    <button onClick={() => removeTodo(todo.id)}>Remove</button>
+                    <button onClick={() => complete(todo.id)}>Toggle</button>
+                    <button onClick={() => remove(todo.id)}>Remove</button>
                   </div>
                 </li>
               ))}
@@ -27,4 +37,12 @@ class TodoList extends Component{
     }
 }
 
-export default TodoList
+const mapStateToProps = state => ({
+    todo: state.todo
+})
+
+const mapDispatchToProps = dispatch => 
+    bindActionCreators(TodoActions, dispatch)
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
