@@ -33,7 +33,7 @@ export const Creators = {
         }
     }),
     remove: id => ({
-        type: Types.REMOVE,
+        type: Types.DELETE,
         payload:{
             id
         }
